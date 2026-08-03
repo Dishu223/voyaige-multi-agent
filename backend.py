@@ -22,6 +22,7 @@ from langchain_core.messages import (
     AIMessage,
     SystemMessage,
 )
+from langchain_core.runnables import RunnableConfig
 from langchain_groq import ChatGroq
 from tools.tavily_tool import tavily_search
 from tools.flight_tool import search_flights
@@ -53,7 +54,7 @@ if not GROQ_API_KEY:
 
 llm = ChatGroq(
     model="llama-3.3-70b-versatile",
-    api_key=GROQ_API_KEY
+    api_key=GROQ_API_KEY  # type: ignore
 )
 
 
@@ -136,10 +137,6 @@ Make the itinerary practical, budget-aware, and easy to follow.
     }
 
 
-
-
-
-
 # =========================
 # Final Response Agent
 # =========================
@@ -212,14 +209,13 @@ DATABASE_URL = get_database_url()
 _conn = psycopg.connect(
     DATABASE_URL,
     autocommit=True,
-    row_factory=dict_row
+    row_factory=dict_row  # type: ignore
 )
 
-checkpointer = PostgresSaver(_conn)
+checkpointer = PostgresSaver(_conn)  # type: ignore
 checkpointer.setup()
 
 travel_graph = graph.compile(checkpointer=checkpointer)
-
 
 
 # =========================
@@ -230,7 +226,7 @@ def run_travel_agent(user_input: str, thread_id: str | None = None):
     if not thread_id:
         thread_id = f"user_{uuid.uuid4().hex}"
 
-    config = {
+    config: RunnableConfig = {
         "configurable": {
             "thread_id": thread_id
         }
