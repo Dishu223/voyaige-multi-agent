@@ -7,7 +7,8 @@ load_dotenv()
 os.environ["SSL_CERT_FILE"] = certifi.where()
 os.environ["REQUESTS_CA_BUNDLE"] = certifi.where()
 
-from typing import TypedDict, Annotated
+from typing import Annotated
+from typing_extensions import TypedDict
 import operator
 import uuid
 
@@ -187,7 +188,7 @@ Important:
 # Build Graph
 # =========================
 
-graph = StateGraph(TravelState)
+graph = StateGraph(TravelState)  # type: ignore
 
 graph.add_node("flight_agent", flight_agent)
 graph.add_node("hotel_agent", hotel_agent)
