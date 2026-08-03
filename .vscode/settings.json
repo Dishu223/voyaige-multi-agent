@@ -1,0 +1,8 @@
+{
+  "python.defaultInterpreterPath": "C:/Users/divya/miniconda3/envs/travel/python.exe",
+  "python.analysis.extraPaths": [
+    "C:/Users/divya/miniconda3/envs/travel/Lib/site-packages"
+  ],
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.diagnosticMode": "workspace"
+}

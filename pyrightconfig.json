@@ -1,0 +1,7 @@
+{
+  "venvPath": "C:\\Users\\divya\\miniconda3\\envs",
+  "venv": "travel",
+  "extraPaths": [
+    "C:\\Users\\divya\\miniconda3\\envs\\travel\\Lib\\site-packages"
+  ]
+}
