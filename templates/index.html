@@ -8,6 +8,11 @@
 
     <title>VoyAIge — Autonomous Multi-Agent Travel Engine</title>
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/static/style.css">
 </head>
 
@@ -17,69 +22,120 @@
         <div class="gradient-circle circle-1"></div>
         <div class="gradient-circle circle-2"></div>
         <div class="gradient-circle circle-3"></div>
+        <div class="grid-overlay"></div>
     </div>
+
+    <header class="app-navbar">
+        <div class="navbar-container">
+            <div class="brand">
+                <div class="brand-icon">✈️</div>
+                <span class="brand-name">Voy<span class="brand-highlight">AI</span>ge</span>
+            </div>
+            <div class="navbar-right">
+                <div class="tech-pills">
+                    <span class="tech-tag"><span class="tech-dot blue"></span>LangGraph</span>
+                    <span class="tech-tag"><span class="tech-dot purple"></span>Groq Llama 3.3</span>
+                    <span class="tech-tag"><span class="tech-dot green"></span>AviationStack</span>
+                </div>
+                <div class="status-pill">
+                    <span class="status-dot"></span>
+                    <span>Engine Online</span>
+                </div>
+            </div>
+        </div>
+    </header>
 
     <main class="app-container">
 
         <section class="hero-section">
             <div class="badge">
-                ✈️ VoyAIge — Autonomous Multi-Agent Travel Engine
+                <span class="badge-sparkle">✨</span>
+                <span>Autonomous Multi-Agent Travel Orchestrator</span>
             </div>
 
-            <h1>
-                Plan Your Next Voyage with AI
+            <h1 class="hero-title">
+                Plan Your Next <span class="gradient-text">Voyage</span> with Multi-Agent Intelligence
             </h1>
 
-            <p>
-                Search live flights, discover accommodations, and generate custom itineraries powered by an autonomous LangGraph multi-agent system.
+            <p class="hero-subtitle">
+                Seamlessly search live flights, discover top accommodations, and generate budget-conscious, day-by-day travel itineraries in seconds.
             </p>
+
+            <div class="hero-features">
+                <div class="feature-chip">
+                    <span class="chip-icon">✈️</span>
+                    <span>Real-Time Flights</span>
+                </div>
+                <div class="feature-chip">
+                    <span class="chip-icon">🏨</span>
+                    <span>Curated Hotels</span>
+                </div>
+                <div class="feature-chip">
+                    <span class="chip-icon">🗺️</span>
+                    <span>Tailored Itineraries</span>
+                </div>
+                <div class="feature-chip">
+                    <span class="chip-icon">💾</span>
+                    <span>PostgreSQL Memory</span>
+                </div>
+            </div>
         </section>
 
         <section class="planner-card">
 
             <div class="card-header">
                 <div>
-                    <h2>Where would you like to travel?</h2>
+                    <div class="card-title-group">
+                        <span class="card-title-icon">🧭</span>
+                        <h2>Where would you like to travel?</h2>
+                    </div>
                     <p>
-                        Describe your dream destination, budget, or timeline to generate a tailored itinerary.
+                        Describe your destination, trip length, origin city, and budget limits to generate a personalized itinerary.
                     </p>
-                </div>
-
-                <div class="status-pill">
-                    <span class="status-dot"></span>
-                    Online
                 </div>
             </div>
 
             <div class="input-area">
-                <textarea id="userInput"
-                    placeholder="e.g., Plan a complete 7 days Japan trip including flights, hotels and sightseeing under 2 lakhs..."></textarea>
+                <div class="textarea-wrapper">
+                    <textarea id="userInput"
+                        placeholder="e.g., Plan a complete 7 days Japan trip from Bangladesh including flights, boutique hotels and sightseeing under 2 lakhs..."></textarea>
+                    <div class="input-footer-hint">
+                        <span class="hint-text">💡 Tip: Include your origin, budget & trip duration for best recommendations</span>
+                        <span class="shortcut-badge">Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd></span>
+                    </div>
+                </div>
 
                 <button id="sendBtn" onclick="sendMessage()">
-                    <span id="btnText">Generate Plan</span>
+                    <span id="btnText">
+                        <svg class="btn-send-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                        Generate Plan
+                    </span>
                     <span id="btnLoader" class="loader hidden"></span>
                 </button>
             </div>
 
-            <div class="quick-prompts">
-                <button
-                    onclick="setPrompt('Plan a complete 7 days Japan trip from Bangladesh including flights, hotels and sightseeing under 2 lakhs.')">
-                    🌸 Japan Trip
-                </button>
+            <div class="quick-prompts-container">
+                <span class="prompts-title">Popular Destinations:</span>
+                <div class="quick-prompts">
+                    <button
+                        onclick="setPrompt('Plan a complete 7 days Japan trip from Bangladesh including flights, hotels and sightseeing under 2 lakhs.')">
+                        🌸 <span>Japan Adventure</span>
+                    </button>
 
-                <button
-                    onclick="setPrompt('Plan a 5 days Dubai trip from Dhaka with flights, hotels and sightseeing.')">
-                    🏙️ Dubai Trip
-                </button>
+                    <button
+                        onclick="setPrompt('Plan a 5 days Dubai trip from Dhaka with flights, hotels and sightseeing.')">
+                        🏙️ <span>Dubai Luxury</span>
+                    </button>
 
-                <button
-                    onclick="setPrompt('Plan a 7 days Thailand trip from Bangladesh with budget hotels and sightseeing.')">
-                    🏝️ Thailand Trip
-                </button>
+                    <button
+                        onclick="setPrompt('Plan a 7 days Thailand trip from Bangladesh with budget hotels and sightseeing.')">
+                        🏝️ <span>Thailand Beach</span>
+                    </button>
 
-                <button onclick="setPrompt('Give me all country flight info.')">
-                    ✈️ Global Flights
-                </button>
+                    <button onclick="setPrompt('Give me all country flight info.')">
+                        ✈️ <span>Global Flights</span>
+                    </button>
+                </div>
             </div>
 
         </section>
@@ -88,16 +144,21 @@
 
             <div class="result-header">
                 <div>
-                    <h2>Your VoyAIge Travel Plan</h2>
+                    <div class="result-title-group">
+                        <span class="result-icon">✨</span>
+                        <h2>Your VoyAIge Itinerary</h2>
+                    </div>
                     <p id="threadInfo">Thread ID: -</p>
                 </div>
 
                 <div class="result-actions">
                     <button class="copy-btn" onclick="copyResult()">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                         Copy
                     </button>
 
                     <button class="download-btn" onclick="downloadPDF()">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
                         Download PDF
                     </button>
                 </div>
@@ -114,8 +175,18 @@
 
     </main>
 
-    <footer>
-        VoyAIge • Powered by FastAPI, LangGraph, Groq, PostgreSQL, Tavily & AviationStack
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span>✈️ VoyAIge Engine</span>
+            </div>
+            <p class="footer-meta">
+                Powered by FastAPI, LangGraph, Groq Llama 3.3, PostgreSQL, Tavily & AviationStack
+            </p>
+            <p class="footer-copyright">
+                &copy; VoyAIge Autonomous Multi-Agent AI Travel Orchestration.
+            </p>
+        </div>
     </footer>
 
     <!-- Markdown Renderer -->
@@ -124,7 +195,7 @@
     <!-- PDF Download Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-    <!-- Your Custom JS -->
+    <!-- Custom JS -->
     <script src="/static/script.js"></script>
 
 </body>
