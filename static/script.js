@@ -42,11 +42,43 @@ function showResult(answer, threadId) {
     const resultBox = document.getElementById("resultBox");
     const threadInfo = document.getElementById("threadInfo");
 
+    let formatted = answer;
+
+    // Convert any plain or numbered section titles into Markdown H2 headings
+    const sections = [
+        { name: "Trip Summary", emoji: "📝" },
+        { name: "Flight Information", emoji: "✈️" },
+        { name: "Hotel Suggestions", emoji: "🏨" },
+        { name: "Weather Information", emoji: "🌤️" },
+        { name: "Weather & Packing Advice", emoji: "🌤️" },
+        { name: "Day-by-Day Itinerary", emoji: "🗓️" },
+        { name: "Estimated Budget", emoji: "💰" },
+        { name: "Final Recommendations", emoji: "💡" }
+    ];
+
+    sections.forEach(sec => {
+        const regex = new RegExp(`(?:^|\\n)(?:\\d+\\.\\s*|\\*\\*|#+\\s*)?(${sec.name})(?:\\*\\*)?[:\\s]*`, 'gi');
+        formatted = formatted.replace(regex, `\n\n## ${sec.emoji} $1\n\n`);
+    });
+
     if (typeof marked !== "undefined") {
-        resultBox.innerHTML = marked.parse(answer);
+        resultBox.innerHTML = marked.parse(formatted);
     } else {
-        resultBox.innerText = answer;
+        resultBox.innerText = formatted;
     }
+
+    // Add PDF section pagebreaks to all h2 headers EXCEPT Trip Summary & Flight Information
+    const h2Headings = resultBox.querySelectorAll("h2");
+    h2Headings.forEach(h2 => {
+        const text = h2.textContent.toLowerCase();
+        if (!text.includes("trip summary") && !text.includes("flight information")) {
+            h2.classList.add("pdf-page-break");
+            // Native html2pdf pagebreak element to force page split before heading
+            const breakDiv = document.createElement("div");
+            breakDiv.className = "html2pdf__page-break";
+            h2.parentNode.insertBefore(breakDiv, h2);
+        }
+    });
 
     threadInfo.textContent = `Thread ID: ${threadId}`;
 
@@ -140,15 +172,17 @@ function downloadPDF() {
     downloadBtn.disabled = true;
 
     const options = {
-        margin: 0.5,
+        margin: [0.4, 0.4, 0.4, 0.4],
         filename: "voyaige-travel-plan.pdf",
         image: {
-            type: "jpeg",
-            quality: 0.98
+            type: "png",
+            quality: 1.0
         },
         html2canvas: {
-            scale: 2,
+            scale: 3,
             useCORS: true,
+            scrollX: 0,
+            scrollY: 0,
             backgroundColor: "#ffffff"
         },
         jsPDF: {
@@ -157,7 +191,8 @@ function downloadPDF() {
             orientation: "portrait"
         },
         pagebreak: {
-            mode: ["avoid-all", "css", "legacy"]
+            mode: ["css", "legacy"],
+            avoid: ["h2", "h3"]
         }
     };
 

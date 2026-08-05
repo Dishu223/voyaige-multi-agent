@@ -1,6 +1,9 @@
 from pathlib import Path
 import traceback
 import uvicorn
+import nest_asyncio
+
+nest_asyncio.apply()
 
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse
